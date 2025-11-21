@@ -1,0 +1,24 @@
+---
+- name: Install java-maven in app server
+  hosts: A1
+  remote_user: root
+
+  tasks:
+  - name: Ensure packages are installed
+    apt:
+      update_cache: yes
+      
+
+
+  - name: Ensure java is installed
+    package:
+      name: default-jdk
+      state: present
+
+
+  - name: Ensure java is installed
+    package:
+      name: maven
+      state: present
+
+

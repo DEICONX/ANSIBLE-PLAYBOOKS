@@ -1,0 +1,64 @@
+---
+- name: clone into web servers
+  hosts: W1
+  remote_user: root---
+- name: clone into web servers
+  hosts: W1
+  remote_user: root
+  become: yes   # recommended for file operations
+
+  tasks:
+    - name: code is cloned
+      git:
+        repo: https://github.com/Akiranred/ecomm.git
+        dest: /home/ubuntu/ecomm
+
+    - name: remove nginx home directory
+      file:
+        path: /var/www/html
+        state: absent
+
+    - name: create home directory for nginx
+      file:
+        path: /var/www/html
+        state: directory
+
+    - name: copy code to nginx home directory
+      copy:
+        src: /home/ubuntu/ecomm
+        dest: /var/www/html
+        remote_src: yes
+
+  
+    - name: code is cloned
+      git:
+        dest: /home/ubuntu/ecomm 
+        repo: https://github.com/Akiranred/ecomm.git
+
+
+  
+    - name: remove nginx home directory
+      file:
+        path: /var/www/html
+        state: absent
+
+
+ 
+    - name: create home directory for nginx
+      file:
+        path: /var/www/html
+        state: directory
+
+
+  
+    - name: copy code to nginx home directory
+      copy:
+        src: /home/ubuntu/ecomm
+        dest: /var/www/html
+        remote_src: yes
+
+
+
+
+
+
