@@ -1,0 +1,51 @@
+---
+- name: Install Sonarqube
+  hosts: D1
+  
+
+  tasks:
+  - name: Update the packages
+    apt:
+      update_cache: yes
+      
+    
+
+  - name: install unzip
+    package:
+      name: unzip
+      state: present
+
+
+
+  - name: Ensure sonarqube is installed
+    get_url:
+      url: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.6.0.92116.zip
+      dest: /home/ubuntu/sonarqube-10.6.0.92116.zip
+
+   
+
+  - name: Ensure sonarqube is unzipped
+    unarchive:
+      src: /home/ubuntu/sonarqube-10.6.0.92116.zip
+      dest: /home/ubuntu
+      remote_src: yes
+
+
+  - name: Edit sonarqube permissions
+    file:
+      path: /home/ubuntu/sonarqube-10.6.0.92116
+      owner: ubuntu
+      group: ubuntu
+      recurse: yes
+
+
+  - name: Ensure java is installed
+    package:
+      name: default-jdk
+      state: present
+
+
+  - name: Ensure sonarqube is started
+    command: /home/ubuntu/sonarqube-10.6.0.92116/bin/linux-x86-64/sonar.sh start
+
+  
